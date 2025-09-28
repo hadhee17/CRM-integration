@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = "http://localhost:3000/api/customers"; // adjust to your backend
+const API_BASE = "https://crm-integration-ruddy.vercel.app/api/customers"; // adjust to your backend
 
 export const getCustomers = () =>
   axios.get(API_BASE).then((res) => res.data.cust);

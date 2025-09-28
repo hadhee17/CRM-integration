@@ -1,16 +1,35 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Customers from "./pages/Customer";
+import Login from "./pages/login";
+import Register from "./pages/Register";
+import Customer from "./pages/Customer";
+import { useAuth } from "./context/AuthContext";
+
+// Protected Route component
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) return <div>Loading...</div>;
+
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
 
 export default function App() {
   return (
     <Routes>
-      {/* Default route */}
-      <Route path="/" element={<Navigate to="/customers" />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-      {/* Customers page */}
-      <Route path="/customers" element={<Customers />} />
+      <Route
+        path="/customer"
+        element={
+          <ProtectedRoute>
+            <Customer />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Later you can add: <Route path="/login" element={<Login />} /> */}
+      {/* Redirect all unknown routes to login */}
+      <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
 }
