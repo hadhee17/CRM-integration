@@ -8,7 +8,8 @@ const app = express();
 //connect Database
 
 const allowedOrigins = [
-  "http://localhost:5173", // local Vite dev server
+  "http://localhost:5173",
+  "https://crm-integration-ykhj.vercel.app", // local Vite dev server
   // deployed frontend
 ];
 app.use(
